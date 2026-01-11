@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>KV Buys - Premium Access</title>
+    <title>KV Buys - Dashboard</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,26 +22,19 @@
             --solana-purple: #9945ff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Outfit', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .bg-glow {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: 
                 radial-gradient(circle at 30% 20%, rgba(20, 241, 149, 0.08) 0%, transparent 40%),
                 radial-gradient(circle at 70% 80%, rgba(153, 69, 255, 0.08) 0%, transparent 40%);
@@ -51,8 +44,8 @@
         }
 
         @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-2%, -2%) rotate(1deg); }
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-2%, -2%); }
         }
 
         .container {
@@ -60,186 +53,80 @@
             z-index: 1;
             max-width: 420px;
             margin: 0 auto;
-            padding: 24px 20px;
-            min-height: 100vh;
+            padding: 20px 16px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .logo {
-            width: 72px;
-            height: 72px;
+            width: 64px; height: 64px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--solana-purple) 100%);
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
+            margin: 0 auto 16px;
+            font-size: 28px;
             box-shadow: 0 8px 32px var(--accent-glow);
-            animation: logoFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
         }
 
         .title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 15px;
-            font-weight: 400;
+            font-size: 14px;
         }
 
-        .status-card {
+        .nav-tabs {
+            display: flex;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+            gap: 4px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 10px 8px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-tab.active {
+            background: var(--bg-card);
+            color: var(--accent);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 16px;
         }
 
-        .status-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--solana-purple));
-        }
-
-        .status-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .status-label {
-            color: var(--text-secondary);
+        .card-title {
             font-size: 14px;
-        }
-
-        .status-value {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ff4757;
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.active {
-            background: var(--accent);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .price-card {
-            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(20, 241, 149, 0.05) 100%);
-            border: 1px solid var(--accent-dim);
-            border-radius: 20px;
-            padding: 28px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .price-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-        }
-
-        .price {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--accent);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .price-currency {
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .price-note {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        .features {
-            margin-bottom: 24px;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .feature:last-child {
-            border-bottom: none;
-        }
-
-        .feature-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--accent-dim);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .feature-text {
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-
-        .payment-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 16px;
             font-weight: 600;
             margin-bottom: 16px;
             display: flex;
@@ -247,103 +134,207 @@
             gap: 8px;
         }
 
-        .wallet-box {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
+        .current-filters {
+            background: var(--accent-dim);
+            border: 1px solid var(--accent);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 16px;
         }
 
-        .wallet-label {
-            color: var(--text-secondary);
+        .current-filters-title {
             font-size: 12px;
+            color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        .wallet-address {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--accent);
-            word-break: break-all;
-            line-height: 1.5;
-        }
-
-        .copy-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent-dim);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            color: var(--accent);
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .current-filters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 8px;
         }
 
-        .copy-btn:hover {
-            background: rgba(20, 241, 149, 0.25);
+        .filter-tag {
+            font-size: 12px;
+            color: var(--text-primary);
         }
 
-        .copy-btn:active {
-            transform: scale(0.98);
+        .filter-tag-value {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .copy-btn.copied {
-            background: var(--accent);
-            color: var(--bg-primary);
+        .emoji-legend {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
 
-        .verify-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+        .emoji-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
         }
 
-        .input-group {
-            margin-bottom: 16px;
+        .emoji-icon { font-size: 20px; }
+        .emoji-text { font-size: 12px; color: var(--text-secondary); }
+        .emoji-range { font-size: 11px; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .input-label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .input-field {
-            width: 100%;
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 14px 16px;
             background: var(--bg-secondary);
-            border: 1px solid var(--border);
             border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .link-item:hover {
+            background: var(--bg-card);
+            transform: translateX(4px);
+        }
+
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .link-arrow { color: var(--text-secondary); }
+
+        .filter-group { margin-bottom: 20px; }
+
+        .filter-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .filter-label-text { font-size: 14px; }
+        .filter-value { font-size: 14px; color: var(--accent); font-weight: 600; }
+
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-secondary);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .range-input-group { flex: 1; }
+
+        .range-input-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .range-input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             color: var(--text-primary);
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        .input-field::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.5;
+        .range-input:focus { border-color: var(--accent); }
+
+        .platform-toggles {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .input-field:focus {
+        .platform-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .platform-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .platform-icon { font-size: 20px; }
+        .platform-name { font-size: 14px; font-weight: 500; }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px; height: 26px;
+        }
+
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px; width: 20px;
+            left: 2px; bottom: 2px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--accent-dim);
             border-color: var(--accent);
         }
 
-        .verify-btn {
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+            background: var(--accent);
+        }
+
+        .save-btn {
             width: 100%;
             padding: 16px;
             background: linear-gradient(135deg, var(--accent) 0%, #0fb87a 100%);
@@ -354,166 +345,73 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            margin-top: 20px;
         }
 
-        .verify-btn:hover {
+        .save-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px var(--accent-glow);
         }
 
-        .verify-btn:active {
-            transform: translateY(0);
-        }
-
-        .verify-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .verify-btn.loading {
-            pointer-events: none;
-        }
-
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid transparent;
-            border-top-color: var(--bg-primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .result-message {
-            margin-top: 16px;
+        .info-box {
+            background: rgba(153, 69, 255, 0.1);
+            border: 1px solid rgba(153, 69, 255, 0.3);
+            border-radius: 12px;
             padding: 14px;
-            border-radius: 12px;
-            font-size: 14px;
-            display: none;
-            align-items: center;
-            gap: 10px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        .result-message.show {
-            display: flex;
-        }
+        .info-box strong { color: var(--solana-purple); }
 
-        .result-message.success {
-            background: rgba(20, 241, 149, 0.15);
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
             border: 1px solid var(--accent);
-            color: var(--accent);
-        }
-
-        .result-message.error {
-            background: rgba(255, 71, 87, 0.15);
-            border: 1px solid #ff4757;
-            color: #ff4757;
-        }
-
-        .result-message.pending {
-            background: rgba(255, 193, 7, 0.15);
-            border: 1px solid #ffc107;
-            color: #ffc107;
-        }
-
-        .instructions {
-            background: var(--bg-secondary);
+            padding: 14px 24px;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .instructions-title {
+            color: var(--accent);
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 100;
         }
 
-        .instructions ol {
-            padding-left: 20px;
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .help-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .help-list {
             color: var(--text-secondary);
             font-size: 13px;
             line-height: 1.8;
         }
 
-        .instructions li {
-            margin-bottom: 4px;
-        }
+        .help-list strong { color: var(--text-primary); }
 
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            color: var(--text-secondary);
+        .alert-example {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
-        }
-
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .success-screen {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .success-screen.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            margin: 0 auto 24px;
-            animation: successPop 0.5s ease-out;
-        }
-
-        @keyframes successPop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .success-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-
-        .success-text {
             color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
         }
 
-        .main-content {
-            display: block;
-        }
-
-        .main-content.hide {
-            display: none;
-        }
+        .alert-example .accent { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -523,100 +421,193 @@
         <div class="header">
             <div class="logo">🐳</div>
             <h1 class="title">KV Buys</h1>
-            <p class="subtitle">Premium Whale Alert Access</p>
+            <p class="subtitle">Vanish Protocol Whale Tracker</p>
         </div>
 
-        <div class="success-screen" id="successScreen">
-            <div class="success-icon">✓</div>
-            <h2 class="success-title">Payment Verified!</h2>
-            <p class="success-text">
-                Welcome to KV Buys Premium! 🎉<br><br>
-                You now have full access to whale alerts.<br>
-                Return to the Telegram channel to start receiving signals.
-            </p>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('dashboard', this)">📊 Dashboard</button>
+            <button class="nav-tab" onclick="showTab('filters', this)">⚙️ Filters</button>
+            <button class="nav-tab" onclick="showTab('help', this)">❓ Help</button>
         </div>
 
-        <div class="main-content" id="mainContent">
-            <div class="status-card">
-                <div class="status-row">
-                    <span class="status-label">Subscription Status</span>
-                    <span class="status-value">
-                        <span class="status-dot" id="statusDot"></span>
-                        <span id="statusText">Not Active</span>
-                    </span>
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="current-filters">
+                <div class="current-filters-title">Active Filters</div>
+                <div class="current-filters-grid">
+                    <div class="filter-tag">💰 Min SOL: <span class="filter-tag-value" id="displayMinSol">0.94</span></div>
+                    <div class="filter-tag">📈 MC: <span class="filter-tag-value" id="displayMC">$10K-$300K</span></div>
+                    <div class="filter-tag">📊 5m Vol: <span class="filter-tag-value" id="displayVol">$2K+</span></div>
+                    <div class="filter-tag">🎯 Platforms: <span class="filter-tag-value" id="displayPlatforms">All</span></div>
                 </div>
             </div>
 
-            <div class="price-card">
-                <div class="price-label">Lifetime Access</div>
-                <div class="price">$50</div>
-                <div class="price-currency">paid in SOL</div>
-                <div class="price-note">
-                    ≈ <span id="solAmount">0.25</span> SOL at current price
+            <div class="card">
+                <div class="card-title">📈 Size Indicators</div>
+                <div class="emoji-legend">
+                    <div class="emoji-item">
+                        <span class="emoji-icon">🦐</span>
+                        <div><div class="emoji-text">Shrimp</div><div class="emoji-range">0.94-2.95 SOL</div></div>
+                    </div>
+                    <div class="emoji-item">
+                        <span class="emoji-icon">🐬</span>
+                        <div><div class="emoji-text">Dolphin</div><div class="emoji-range">2.95-4.95 SOL</div></div>
+                    </div>
+                    <div class="emoji-item">
+                        <span class="emoji-icon">🐳</span>
+                        <div><div class="emoji-text">Whale</div><div class="emoji-range">4.95-9.95 SOL</div></div>
+                    </div>
+                    <div class="emoji-item">
+                        <span class="emoji-icon">💥</span>
+                        <div><div class="emoji-text">Explosion</div><div class="emoji-range">9.95+ SOL</div></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
-                    <div class="feature-text">Real-time Vanish Protocol whale alerts</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <div class="feature-text">Pump.fun, Bonk & Bags.fm coverage</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-text">Market cap & token age filtering</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔗</div>
-                    <div class="feature-text">Direct links to Axiom, DexScreener & more</div>
+            <div class="card">
+                <div class="card-title">🎯 Platform Icons</div>
+                <div class="emoji-legend">
+                    <div class="emoji-item"><span class="emoji-icon">💊</span><div class="emoji-text">Pump.fun</div></div>
+                    <div class="emoji-item"><span class="emoji-icon">🐕</span><div class="emoji-text">Bonk.fun</div></div>
+                    <div class="emoji-item"><span class="emoji-icon">💰</span><div class="emoji-text">Bags.fm</div></div>
+                    <div class="emoji-item"><span class="emoji-icon">⭐</span><div class="emoji-text">First Alert</div></div>
                 </div>
             </div>
 
-            <div class="instructions">
-                <div class="instructions-title">📋 How to Subscribe</div>
-                <ol>
-                    <li>Copy the wallet address below</li>
-                    <li>Send exactly <strong>$50 in SOL</strong> to the address</li>
-                    <li>Paste your transaction signature to verify</li>
-                    <li>Get instant access to premium alerts!</li>
-                </ol>
-            </div>
-
-            <div class="payment-section">
-                <div class="section-title">💳 Payment Address</div>
-                <div class="wallet-box">
-                    <div class="wallet-label">Solana Wallet</div>
-                    <div class="wallet-address" id="walletAddress">573cV4ZADGCCxyr1d5YVcoLKEgPEadL4XE2va7s3ECPB</div>
-                </div>
-                <button class="copy-btn" id="copyBtn" onclick="copyAddress()">
-                    <span>📋</span>
-                    <span id="copyText">Copy Address</span>
-                </button>
-            </div>
-
-            <div class="verify-section">
-                <div class="section-title">✅ Verify Payment</div>
-                <div class="input-group">
-                    <label class="input-label">Transaction Signature</label>
-                    <input type="text" class="input-field" id="txSignature" placeholder="Paste your transaction signature here...">
-                </div>
-                <button class="verify-btn" id="verifyBtn" onclick="verifyPayment()">
-                    <span id="verifyBtnText">Verify Payment</span>
-                </button>
-                <div class="result-message" id="resultMessage">
-                    <span id="resultIcon"></span>
-                    <span id="resultText"></span>
+            <div class="card">
+                <div class="card-title">🔗 Quick Links</div>
+                <div class="links-list">
+                    <a href="https://axiom.trade" target="_blank" class="link-item">
+                        <div class="link-info"><span>📈</span><span>Axiom Trade</span></div>
+                        <span class="link-arrow">→</span>
+                    </a>
+                    <a href="https://dexscreener.com/solana" target="_blank" class="link-item">
+                        <div class="link-info"><span>📊</span><span>DexScreener</span></div>
+                        <span class="link-arrow">→</span>
+                    </a>
+                    <a href="https://pump.fun" target="_blank" class="link-item">
+                        <div class="link-info"><span>💊</span><span>Pump.fun</span></div>
+                        <span class="link-arrow">→</span>
+                    </a>
+                    <a href="https://bonk.fun" target="_blank" class="link-item">
+                        <div class="link-info"><span>🐕</span><span>Bonk.fun</span></div>
+                        <span class="link-arrow">→</span>
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <div class="footer">
-                Powered by Solana ◎ <a href="https://t.me/KVBuysbot">@KVBuysbot</a>
+        <!-- Filters Tab -->
+        <div id="filters" class="tab-content">
+            <div class="card">
+                <div class="card-title">💰 SOL Amount</div>
+                <div class="filter-group">
+                    <div class="filter-label">
+                        <span class="filter-label-text">Minimum Buy Size</span>
+                        <span class="filter-value" id="minSolValue">0.94 SOL</span>
+                    </div>
+                    <input type="range" class="range-slider" id="minSolSlider" min="0.5" max="10" step="0.1" value="0.94" oninput="updateMinSol(this.value)">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Market Cap Range</div>
+                <div class="range-inputs">
+                    <div class="range-input-group">
+                        <label class="range-input-label">Minimum ($)</label>
+                        <input type="number" class="range-input" id="minMC" value="10000">
+                    </div>
+                    <div class="range-input-group">
+                        <label class="range-input-label">Maximum ($)</label>
+                        <input type="number" class="range-input" id="maxMC" value="300000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📈 Volume Filter</div>
+                <div class="range-input-group">
+                    <label class="range-input-label">Minimum 5-minute Volume ($)</label>
+                    <input type="number" class="range-input" id="minVolume" value="2000">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 Platforms</div>
+                <div class="platform-toggles">
+                    <div class="platform-toggle">
+                        <div class="platform-info"><span class="platform-icon">💊</span><span class="platform-name">Pump.fun</span></div>
+                        <label class="toggle-switch"><input type="checkbox" id="togglePump" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="platform-toggle">
+                        <div class="platform-info"><span class="platform-icon">🐕</span><span class="platform-name">Bonk.fun</span></div>
+                        <label class="toggle-switch"><input type="checkbox" id="toggleBonk" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="platform-toggle">
+                        <div class="platform-info"><span class="platform-icon">💰</span><span class="platform-name">Bags.fm</span></div>
+                        <label class="toggle-switch"><input type="checkbox" id="toggleBags" checked><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="save-btn" onclick="saveFilters()">💾 Save Filters</button>
+
+            <div class="info-box">
+                <strong>Note:</strong> Filter changes are saved locally. Contact admin to update server-side filters.
+            </div>
+        </div>
+
+        <!-- Help Tab -->
+        <div id="help" class="tab-content">
+            <div class="card">
+                <div class="card-title">🐳 What is KV Buys?</div>
+                <p class="help-text">KV Buys tracks whale purchases on Solana memecoins through the Vanish Protocol. Get instant alerts when whales buy tokens on Pump.fun, Bonk.fun, and Bags.fm.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📖 How to Read Alerts</div>
+                <div class="alert-example">
+                    ⭐ 🐬 TOKEN Name 2.50 SOL 💊<br>
+                    <span class="accent">CA_ADDRESS_HERE</span><br>
+                    MC: $25.4K | Age: 5m | TW<br>
+                    AX
+                </div>
+                <div class="help-list">
+                    • <strong>⭐</strong> = First time this token alerted<br>
+                    • <strong>[2]</strong> = Second alert for same token<br>
+                    • <strong>🐬</strong> = Buy size (see Dashboard)<br>
+                    • <strong>💊</strong> = Platform (pump/bonk/bags)<br>
+                    • <strong>Ticker</strong> links to DexScreener<br>
+                    • <strong>Name</strong> links to platform page<br>
+                    • <strong>SOL</strong> links to transaction<br>
+                    • <strong>AX</strong> links to Axiom Trade
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚡ Quick Tips</div>
+                <div class="help-list">
+                    • Tap the CA to copy it instantly<br>
+                    • ⭐ alerts are often earliest entries<br>
+                    • Check TW (Twitter) for socials<br>
+                    • Higher SOL buys = more confidence<br>
+                    • DYOR before aping into any token!
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📞 Support</div>
+                <div class="links-list">
+                    <a href="https://t.me/bostonmemer" target="_blank" class="link-item">
+                        <div class="link-info"><span>💬</span><span>Contact Admin</span></div>
+                        <span class="link-arrow">→</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="toast" id="toast"></div>
 
     <script>
         const tg = window.Telegram?.WebApp;
@@ -626,150 +617,82 @@
             tg.setBackgroundColor('#0a0a0f');
         }
 
-        const RECEIVING_WALLET = '573cV4ZADGCCxyr1d5YVcoLKEgPEadL4XE2va7s3ECPB';
-        const REQUIRED_USD = 50;
-        const TOLERANCE = 0.9;
-
-        async function updateSolPrice() {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
-                const data = await response.json();
-                const solPrice = data.solana.usd;
-                const solAmount = (REQUIRED_USD / solPrice).toFixed(3);
-                document.getElementById('solAmount').textContent = solAmount;
-            } catch (error) {
-                console.log('Could not fetch SOL price');
-            }
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
         }
 
-        function copyAddress() {
-            const address = document.getElementById('walletAddress').textContent;
-            navigator.clipboard.writeText(address).then(() => {
-                const btn = document.getElementById('copyBtn');
-                const text = document.getElementById('copyText');
-                btn.classList.add('copied');
-                text.textContent = 'Copied!';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    text.textContent = 'Copy Address';
-                }, 2000);
-            });
+        function updateMinSol(val) {
+            document.getElementById('minSolValue').textContent = val + ' SOL';
         }
 
-        function showResult(type, message) {
-            const resultDiv = document.getElementById('resultMessage');
-            const resultIcon = document.getElementById('resultIcon');
-            const resultText = document.getElementById('resultText');
+        function formatK(n) {
+            n = parseInt(n);
+            if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n/1000).toFixed(0) + 'K';
+            return n;
+        }
+
+        function saveFilters() {
+            const f = {
+                minSol: document.getElementById('minSolSlider').value,
+                minMC: document.getElementById('minMC').value,
+                maxMC: document.getElementById('maxMC').value,
+                minVolume: document.getElementById('minVolume').value,
+                platforms: {
+                    pump: document.getElementById('togglePump').checked,
+                    bonk: document.getElementById('toggleBonk').checked,
+                    bags: document.getElementById('toggleBags').checked
+                }
+            };
+            localStorage.setItem('kvbuys_filters', JSON.stringify(f));
             
-            resultDiv.className = 'result-message show ' + type;
-            resultIcon.textContent = type === 'success' ? '✓' : type === 'error' ? '✗' : '⏳';
-            resultText.textContent = message;
+            document.getElementById('displayMinSol').textContent = f.minSol;
+            document.getElementById('displayMC').textContent = '$' + formatK(f.minMC) + '-$' + formatK(f.maxMC);
+            document.getElementById('displayVol').textContent = '$' + formatK(f.minVolume) + '+';
+            
+            const p = [];
+            if (f.platforms.pump) p.push('💊');
+            if (f.platforms.bonk) p.push('🐕');
+            if (f.platforms.bags) p.push('💰');
+            document.getElementById('displayPlatforms').textContent = p.join(' ') || 'None';
+
+            const toast = document.getElementById('toast');
+            toast.textContent = 'Settings saved!';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+
+            if (tg) tg.sendData(JSON.stringify({ action: 'save_filters', filters: f }));
         }
 
-        async function verifyPayment() {
-            const signature = document.getElementById('txSignature').value.trim();
-            const btn = document.getElementById('verifyBtn');
-            const btnText = document.getElementById('verifyBtnText');
-            
-            if (!signature) {
-                showResult('error', 'Please enter a transaction signature');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.classList.add('loading');
-            btnText.innerHTML = '<div class="spinner"></div>';
-
-            try {
-                const response = await fetch('https://api.mainnet-beta.solana.com', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        jsonrpc: '2.0',
-                        id: 1,
-                        method: 'getTransaction',
-                        params: [signature, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]
-                    })
-                });
-
-                const data = await response.json();
-
-                if (!data.result) {
-                    showResult('error', 'Transaction not found. Please check the signature.');
-                    resetButton();
-                    return;
-                }
-
-                if (data.result.meta?.err) {
-                    showResult('error', 'Transaction failed on-chain.');
-                    resetButton();
-                    return;
-                }
-
-                const preBalances = data.result.meta.preBalances;
-                const postBalances = data.result.meta.postBalances;
-                const accountKeys = data.result.transaction.message.accountKeys;
-
-                let receivedAmount = 0;
-                for (let i = 0; i < accountKeys.length; i++) {
-                    const pubkey = accountKeys[i].pubkey || accountKeys[i];
-                    if (pubkey === RECEIVING_WALLET) {
-                        receivedAmount = (postBalances[i] - preBalances[i]) / 1e9;
-                        break;
-                    }
-                }
-
-                if (receivedAmount <= 0) {
-                    showResult('error', 'Payment not sent to correct wallet address.');
-                    resetButton();
-                    return;
-                }
-
-                const priceResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
-                const priceData = await priceResponse.json();
-                const solPrice = priceData.solana.usd;
-                const usdReceived = receivedAmount * solPrice;
-
-                if (usdReceived < REQUIRED_USD * TOLERANCE) {
-                    showResult('error', `Insufficient amount. Received $${usdReceived.toFixed(2)}, required $${REQUIRED_USD}`);
-                    resetButton();
-                    return;
-                }
-
-                showResult('success', 'Payment verified successfully!');
+        function loadFilters() {
+            const s = localStorage.getItem('kvbuys_filters');
+            if (s) {
+                const f = JSON.parse(s);
+                document.getElementById('minSolSlider').value = f.minSol;
+                document.getElementById('minSolValue').textContent = f.minSol + ' SOL';
+                document.getElementById('minMC').value = f.minMC;
+                document.getElementById('maxMC').value = f.maxMC;
+                document.getElementById('minVolume').value = f.minVolume;
+                document.getElementById('togglePump').checked = f.platforms.pump;
+                document.getElementById('toggleBonk').checked = f.platforms.bonk;
+                document.getElementById('toggleBags').checked = f.platforms.bags;
                 
-                if (tg) {
-                    tg.sendData(JSON.stringify({
-                        action: 'payment_verified',
-                        signature: signature,
-                        amount_sol: receivedAmount,
-                        amount_usd: usdReceived,
-                        user_id: tg.initDataUnsafe?.user?.id
-                    }));
-                }
-
-                setTimeout(() => {
-                    document.getElementById('mainContent').classList.add('hide');
-                    document.getElementById('successScreen').classList.add('show');
-                }, 1500);
-
-            } catch (error) {
-                console.error('Verification error:', error);
-                showResult('error', 'Verification failed. Please try again.');
-                resetButton();
+                document.getElementById('displayMinSol').textContent = f.minSol;
+                document.getElementById('displayMC').textContent = '$' + formatK(f.minMC) + '-$' + formatK(f.maxMC);
+                document.getElementById('displayVol').textContent = '$' + formatK(f.minVolume) + '+';
+                
+                const p = [];
+                if (f.platforms.pump) p.push('💊');
+                if (f.platforms.bonk) p.push('🐕');
+                if (f.platforms.bags) p.push('💰');
+                document.getElementById('displayPlatforms').textContent = p.join(' ') || 'None';
             }
         }
 
-        function resetButton() {
-            const btn = document.getElementById('verifyBtn');
-            const btnText = document.getElementById('verifyBtnText');
-            btn.disabled = false;
-            btn.classList.remove('loading');
-            btnText.textContent = 'Verify Payment';
-        }
-
-        updateSolPrice();
-        setInterval(updateSolPrice, 60000);
+        loadFilters();
     </script>
 </body>
 </html>
